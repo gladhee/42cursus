@@ -3,8 +3,8 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = philo
 
 SRCS = philo.c philo_free.c philo_init.c philo_init_utils.c \
- 		philo_monitor.c philo_status.c philo_thread.c philo_thread_utils.c \
- 		philo_utils.c
+		philo_monitor.c philo_status.c philo_thread.c philo_thread_utils.c \
+		philo_utils.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

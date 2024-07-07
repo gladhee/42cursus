@@ -52,44 +52,58 @@ t_info	*init_info(int argc, char **argv)
 	return (info);
 }
 
-void	error_free(t_info *info, t_philo *philo, int i)
+t_bool	init_order(t_info *info)
 {
-	while (--i >= 0)
+	info->order.data = (int *)malloc(sizeof(int));
+	if (!info->order.data)
+		return (FALSE);
+	*(int *)info->order.data = info->num_of_philo - 1;
+	if (pthread_mutex_init(&info->order.mutex, NULL))
 	{
-		pthread_mutex_destroy(&philo[i].time_of_eat.mutex);
-		pthread_mutex_destroy(&philo[i].num_of_eat.mutex);
-		free(philo[i].time_of_eat.data);
-		free(philo[i].num_of_eat.data);
+		free(info->order.data);
+		return (FALSE);
 	}
-	free(philo);
-	free_info(info);
+	return (TRUE);
 }
 
-t_philo	*init_philo(t_info *info)
+t_philo *philo_while(t_info *info, t_mutex *time, t_mutex *num)
 {
 	t_philo	*philo;
 	int		i;
 
+	i = 0;
 	philo = (t_philo *)malloc(sizeof(t_philo) * info->num_of_philo);
 	if (!philo)
 		return (NULL);
-	i = 0;
 	while (i < info->num_of_philo)
 	{
-		philo[i].id = i + 1;
-		philo[i].info = info;
-		philo[i].left_fork = &info->forks[i];
-		philo[i].right_fork = &info->forks[(i + 1) % info->num_of_philo];
-		if ((i + 1) % 2 == 0)
-			philo[i].eat = philo_eat_even;
-		else
-			philo[i].eat = philo_eat_odd;
-		if (!init_philo_data(&philo[i]))
+		init_philo_set(&philo[i], info, i);
+		if (!init_philo_data(&philo[i], time, num))
 		{
 			error_free(info, philo, i);
 			return (NULL);
 		}
 		i++;
 	}
+	return (philo);
+}
+
+t_philo	*init_philo(t_info *info)
+{
+	t_philo	*philo;
+	t_mutex time;
+	t_mutex num;
+
+	if (pthread_mutex_init(&time, NULL))
+		return (NULL);
+	if (pthread_mutex_init(&num, NULL))
+	{
+		pthread_mutex_destroy(&time);
+		return (NULL);
+	}
+	philo = philo_while(info, &time, &num);
+	if (!philo)
+		return (NULL);
+
 	return (philo);
 }

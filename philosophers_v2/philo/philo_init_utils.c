@@ -27,20 +27,23 @@ int	ft_atoi(const char *str)
 
 t_bool	init_arg(t_info *info, int argc, char **argv)
 {
-	if (argc != 5 && argc != 6)
+	if (argc < 5 || argc > 6)
 		return (FALSE);
-	if (argc == 5)
-		info->num_of_must_eat = -1;
-	else
-		info->num_of_must_eat = ft_atoi(argv[5]);
 	info->num_of_philo = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
 	info->time_to_sleep = ft_atoi(argv[4]);
-	if (info->num_of_philo < 1 || info->time_to_die < 1 || info->time_to_eat < 1
-		|| info->time_to_sleep < 1 || (argc == 6 && info->num_of_must_eat < 1))
+	if (argc == 6)
+		info->num_of_must_eat = ft_atoi(argv[5]);
+	else
+		info->num_of_must_eat = -1;
+	if (info->num_of_philo < 2 || info->time_to_die < 0
+		|| info->time_to_eat < 0 || info->time_to_sleep < 0
+		|| (argc == 6 && info->num_of_must_eat < 1))
 		return (FALSE);
 	info->start_time = get_time();
+	if (!init_order(info))
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -64,31 +67,29 @@ t_bool	init_info_data(t_info *info)
 	return (TRUE);
 }
 
-t_bool	init_philo_data(t_philo *philo)
+void	init_philo_set(t_philo *philo, t_info *info, int i)
+{
+	philo->info = info;
+	philo->id = i;
+	philo->left_fork = &info->forks[i];
+	philo->right_fork = &info->forks[(i + 1) % info->num_of_philo];
+	philo->eat = philo_eat;
+}
+
+t_bool	init_philo_data(t_philo *philo, t_mutex *time, t_mutex *num)
 {
 	philo->time_of_eat.data = (t_time *)malloc(sizeof(t_time));
 	if (!philo->time_of_eat.data)
 		return (FALSE);
-	*((t_time *)philo->time_of_eat.data) = philo->info->start_time;
-	if (pthread_mutex_init(&philo->time_of_eat.mutex, NULL))
-	{
-		free(philo->time_of_eat.data);
-		return (FALSE);
-	}
-	philo->num_of_eat.data = (t_time *)malloc(sizeof(t_time));
+	*(t_time *)philo->time_of_eat.data = philo->info->start_time;
+	philo->time_of_eat.mutex = *time;
+	philo->num_of_eat.data = (int *)malloc(sizeof(int));
 	if (!philo->num_of_eat.data)
 	{
-		pthread_mutex_destroy(&philo->time_of_eat.mutex);
 		free(philo->time_of_eat.data);
 		return (FALSE);
 	}
-	*((t_time *)philo->num_of_eat.data) = 0;
-	if (pthread_mutex_init(&philo->num_of_eat.mutex, NULL))
-	{
-		free(philo->num_of_eat.data);
-		pthread_mutex_destroy(&philo->time_of_eat.mutex);
-		free(philo->time_of_eat.data);
-		return (FALSE);
-	}
+	*(int *)philo->num_of_eat.data = 0;
+	philo->num_of_eat.mutex = *num;
 	return (TRUE);
 }

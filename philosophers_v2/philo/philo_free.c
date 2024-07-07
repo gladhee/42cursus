@@ -26,14 +26,27 @@ void	free_philo(t_philo *philo, int philo_num)
 {
 	int	i;
 
+	pthread_mutex_destroy(&philo->time_of_eat.mutex);
+	pthread_mutex_destroy(&philo->num_of_eat.mutex);
 	i = 0;
 	while (i < philo_num)
 	{
-		pthread_mutex_destroy(&philo[i].time_of_eat.mutex);
-		pthread_mutex_destroy(&philo[i].num_of_eat.mutex);
 		free(philo[i].time_of_eat.data);
 		free(philo[i].num_of_eat.data);
 		i++;
 	}
 	free(philo);
+}
+
+void	error_free(t_info *info, t_philo *philo, int i)
+{
+	pthread_mutex_destroy(&philo->time_of_eat.mutex);
+	pthread_mutex_destroy(&philo->num_of_eat.mutex);
+	while (--i >= 0)
+	{
+		free(philo[i].time_of_eat.data);
+		free(philo[i].num_of_eat.data);
+	}
+	free(philo);
+	free_info(info);
 }
