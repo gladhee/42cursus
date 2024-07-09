@@ -39,21 +39,33 @@ int	get_num_of_eat(t_philo *philo)
 t_bool	philo_check_dead(t_info *info, t_philo *philo)
 {
 	t_time	time;
+	t_time	now;
 
 	if (is_dead(info))
 		return (TRUE);
 	time = get_last_eat(philo);
-	if (get_time() - time >= info->time_to_die)
+	now = get_time();
+	if (now == ERROR || time == ERROR)
+		return (FALSE);
+	if ((now - time) > (info->time_to_die))
 		return (TRUE);
 	return (FALSE);
 }
 
 t_bool	philo_is_full(t_info *info, t_philo *philo)
 {
-	if (info->num_of_must_eat != -1)
+	int	i;
+
+	i = 0;
+	if (info->num_of_must_eat == -1)
+		return (FALSE);
+	while (i < info->num_of_philo)
 	{
-		if (get_num_of_eat(philo) > info->num_of_must_eat)
+		if (get_num_of_eat(philo) >= info->num_of_must_eat)
+			info->eat_cnt++;
+		if (info->eat_cnt >= info->num_of_philo)
 			return (TRUE);
+		i++;
 	}
 	return (FALSE);
 }
@@ -71,11 +83,11 @@ t_bool	philo_monitor(t_info *info, t_philo *philo)
 		{
 			if (philo_check_dead(info, &philo[i]))
 			{
-				philo_print(philo, "died");
+				philo_print(&philo[i], "died");
 				set_dead(info);
 				flag = FALSE;
 			}
-			if (philo_is_full(info, &philo[i]))
+			if (philo_is_full(info, philo))
 			{
 				set_dead(info);
 				flag = FALSE;

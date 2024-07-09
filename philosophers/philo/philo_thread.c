@@ -48,7 +48,7 @@ void	*philo_thread(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id & 1)
+	if (philo->id & 1 && philo->info->num_of_philo != 1)
 	{
 		philo_think(philo);
 		wait_time(50);

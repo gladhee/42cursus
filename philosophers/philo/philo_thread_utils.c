@@ -36,6 +36,8 @@ t_bool	pick_up_fork(t_philo *philo, t_fork *fork)
 {
 	while (TRUE)
 	{
+		if (is_dead(philo->info))
+			return (FALSE);
 		if (pthread_mutex_lock(&fork->mutex))
 			return (FALSE);
 		if (*fork->is_used == FALSE)
@@ -46,6 +48,12 @@ t_bool	pick_up_fork(t_philo *philo, t_fork *fork)
 			return (TRUE);
 		}
 		pthread_mutex_unlock(&fork->mutex);
+		if (philo->info->num_of_philo == 1)
+		{
+			while (!is_dead(philo->info))
+				usleep(100);
+			return (FALSE);
+		}
 		usleep(100);
 	}
 }
@@ -75,8 +83,7 @@ t_bool	philo_eat(t_philo *philo, t_fork *fork1, t_fork *fork2)
 		return (FALSE);
 	if (!pick_up_fork(philo, fork2))
 	{
-		if (!put_down_fork(fork1))
-			return (FALSE);
+		put_down_fork(fork1);
 		return (FALSE);
 	}
 	time = philo_print(philo, "is eating");
@@ -87,8 +94,7 @@ t_bool	philo_eat(t_philo *philo, t_fork *fork1, t_fork *fork2)
 	philo_update_num_of_eat(philo);
 	if (!put_down_fork(fork1))
 	{
-		if (!put_down_fork(fork2))
-			return (FALSE);
+		put_down_fork(fork2);
 		return (FALSE);
 	}
 	if (!put_down_fork(fork2))

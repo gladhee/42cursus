@@ -93,6 +93,7 @@ t_bool	init_arg(t_info *info, int argc, char **argv)
 		return (FALSE);
 	if (!init_order(info))
 		return (FALSE);
+	info->eat_cnt = 0;
 	return (TRUE);
 }
 

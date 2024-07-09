@@ -54,6 +54,7 @@ typedef struct s_info
 	t_time	start_time;
 	t_data	dead;
 	t_data	order;
+	int		eat_cnt;
 }				t_info;
 
 typedef struct s_philo
