@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heechoi <heechoi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 12:16:46 by heechoi           #+#    #+#             */
+/*   Updated: 2024/07/09 12:39:40 by heechoi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	error_return(void)
@@ -29,12 +41,18 @@ t_bool	philosopher(t_info *info, t_philo *philo)
 	return (TRUE);
 }
 
+void	myexit(void)
+{
+	system("leaks philo");
+}
+
 int	main(int argc, char **argv)
 {
 	t_info	*info;
 	t_philo	*philo;
 	t_bool	res;
 
+	atexit(myexit);
 	info = init_info(argc, argv);
 	if (!info)
 		return (error_return());
@@ -42,8 +60,8 @@ int	main(int argc, char **argv)
 	if (!philo)
 		return (error_return());
 	res = philosopher(info, philo);
-//	free_philo(philo, philo->info->num_of_philo);
-//	free_info(info);
+	free_philo(philo, philo->info->num_of_philo);
+	free_info(info);
 	if (!res)
 		return (error_return());
 	return (EXIT_SUCCESS);

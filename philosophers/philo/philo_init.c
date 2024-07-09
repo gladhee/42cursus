@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heechoi <heechoi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 12:17:11 by heechoi           #+#    #+#             */
+/*   Updated: 2024/07/09 13:14:23 by heechoi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 t_bool	init_order(t_info *info)
@@ -45,7 +57,7 @@ t_bool	init_philo_data(t_philo *philo)
 
 t_philo	*init_philo(t_info *info)
 {
-	t_philo *philo;
+	t_philo	*philo;
 	int		i;
 
 	philo = (t_philo *)malloc(sizeof(t_philo) * info->num_of_philo);
@@ -58,7 +70,6 @@ t_philo	*init_philo(t_info *info)
 		philo[i].id = i + 1;
 		philo[i].left_fork = &info->forks[i];
 		philo[i].right_fork = &info->forks[(i + 1) % info->num_of_philo];
-		philo[i].eat = philo_eat;
 		if (!init_philo_data(&philo[i]))
 		{
 			while (--i >= 0)

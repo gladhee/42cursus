@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_status.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heechoi <heechoi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 12:17:18 by heechoi           #+#    #+#             */
+/*   Updated: 2024/07/09 12:59:58 by heechoi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 t_bool	set_dead(t_info *info)
@@ -20,7 +32,7 @@ t_bool	is_dead(t_info *info)
 	return (ret);
 }
 
-int get_order(t_info *info)
+int	get_order(t_info *info)
 {
 	int	ret;
 

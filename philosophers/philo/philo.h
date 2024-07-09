@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heechoi <heechoi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 12:17:24 by heechoi           #+#    #+#             */
+/*   Updated: 2024/07/09 13:12:20 by heechoi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -8,9 +20,9 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef char	t_bool;
+typedef char			t_bool;
 
-typedef long long	t_time;
+typedef long long		t_time;
 
 typedef pthread_mutex_t	t_mutex;
 
@@ -53,12 +65,13 @@ typedef struct s_philo
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 	t_info		*info;
-	t_bool		(*eat)(struct s_philo *philo, t_fork *fork1, t_fork *fork2);
 }				t_philo;
 
 /* philo_free.c */
 void	destroy_forks(t_fork *forks, int num_of_philo);
 void	destroy_philo_data(t_philo *philo);
+void	free_philo(t_philo *philo, int num_of_philo);
+void	free_info(t_info *info);
 
 /* philo_init.c */
 t_philo	*init_philo(t_info *info);
@@ -84,7 +97,8 @@ t_bool	philo_eat(t_philo *philo, t_fork *fork1, t_fork *fork2);
 
 /* philo_utils.c */
 t_time	get_time(void);
-void	msleep(t_time time);
+//t_bool	philo_wait(t_time set);
+t_bool	wait_time(t_time time);
 t_time	philo_print(t_philo *philo, char *str);
 int		ft_atoi(const char *str);
 

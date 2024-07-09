@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_init_info.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heechoi <heechoi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 12:17:08 by heechoi           #+#    #+#             */
+/*   Updated: 2024/07/09 12:39:22 by heechoi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 t_bool	init_info_data(t_info *info)
@@ -37,7 +49,7 @@ t_bool	init_fork(t_fork *fork)
 t_fork	*init_forks(int num_of_philo)
 {
 	t_fork	*forks;
-	int 	i;
+	int		i;
 
 	forks = (t_fork *)malloc(sizeof(t_fork) * num_of_philo);
 	if (!forks)

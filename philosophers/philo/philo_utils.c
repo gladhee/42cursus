@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heechoi <heechoi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 12:16:52 by heechoi           #+#    #+#             */
+/*   Updated: 2024/07/09 12:31:26 by heechoi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 t_time	get_time(void)
@@ -9,7 +21,7 @@ t_time	get_time(void)
 	return ((t_time)time.tv_sec * 1000 + (t_time)time.tv_usec / 1000);
 }
 
-void	msleep(t_time time)
+t_bool	wait_time(t_time time)
 {
 	t_time	start_time;
 	t_time	now;
@@ -18,17 +30,18 @@ void	msleep(t_time time)
 		time = 1;
 	start_time = get_time();
 	if (start_time == ERROR)
-		return ;
+		return (FALSE);
 	usleep(time * 800);
 	while (TRUE)
 	{
 		now = get_time();
 		if (now == ERROR)
-			return ;
+			return (FALSE);
 		if (now - start_time >= time)
 			break ;
 		usleep((time - (now - start_time)) * 500);
 	}
+	return (TRUE);
 }
 
 t_time	philo_print(t_philo *philo, char *str)
@@ -37,6 +50,11 @@ t_time	philo_print(t_philo *philo, char *str)
 
 	if (pthread_mutex_lock(&philo->info->print))
 		return (ERROR);
+	if (is_dead(philo->info))
+	{
+		pthread_mutex_unlock(&philo->info->print);
+		return (ERROR);
+	}
 	time = get_time();
 	if (time == ERROR)
 	{
@@ -49,11 +67,11 @@ t_time	philo_print(t_philo *philo, char *str)
 	return (time);
 }
 
-int ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	unsigned long long	res;
 	int					sign;
-	int 				i;
+	int					i;
 
 	res = 0;
 	sign = 1;
