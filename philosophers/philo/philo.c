@@ -41,12 +41,17 @@ t_bool	philosopher(t_info *info, t_philo *philo)
 	return (TRUE);
 }
 
+void	myexit(void)
+{
+	system("leaks philo");}
+
 int	main(int argc, char **argv)
 {
 	t_info	*info;
 	t_philo	*philo;
 	t_bool	res;
 
+	atexit(myexit);
 	info = init_info(argc, argv);
 	if (!info)
 		return (error_return());

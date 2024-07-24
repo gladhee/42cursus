@@ -6,7 +6,7 @@
 /*   By: heechoi <heechoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:05:38 by heechoi           #+#    #+#             */
-/*   Updated: 2024/05/22 21:06:42 by heechoi          ###   ########.fr       */
+/*   Updated: 2024/07/09 13:06:22 by heechoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			(*fractal)(int, int, t_complex, t_viewport);
+	int			(*fractal)(int, int, t_complex *, t_viewport *);
 	t_viewport	viewport;
 	t_complex	c;
 }				t_data;
