@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstdlib>
 #include "PhoneBook.hpp"
+#include <iostream>
+
 
 int	main() {
 	PhoneBook phonebook;
@@ -15,22 +15,20 @@ int	main() {
 				phonebook.addContact();
 			}
 			else if (cmd == "SEARCH") {
-				phonebook.
+				phonebook.searchContact();
 			}
 			else if (cmd == "EXIT") {
 				std::cout << "Exiting the program..." << std::endl;
 				break ;
 			}
-			else if (std::cin.eof()) {
-				std::cout << "Exiting the program..." << std::endl;
-				break ;
-			}
+			else if (std::cin.eof())
+				throw std::exception();
 			else
 				std::cout << "Invalid command. Please try again." << std::endl;
 		} catch (std::exception &e) {
 			std::cin.clear();
 			clearerr(stdin);
-			std::cout << std::endl
+			std::cout << std::endl;
 		}
 	}
 	return (EXIT_SUCCESS);
