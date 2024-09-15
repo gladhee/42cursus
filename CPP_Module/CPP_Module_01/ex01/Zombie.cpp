@@ -28,3 +28,7 @@ Zombie &Zombie::operator=(const Zombie &zombie) {
 void Zombie::announce(void) {
 	std::cout << this->_name << " : " << SOUND << std::endl;
 }
+
+void Zombie::setName(std::string name) {
+	this->_name = name;
+}

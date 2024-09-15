@@ -3,25 +3,23 @@
 #define PHONEBOOK_HPP
 
 #include "Contact.hpp"
+#include <iostream>
 
 class PhoneBook {
 private:
-	Contact	contacts[8];
-	int		index;
+	Contact	_contacts[8];
+	int		_contactIndex;
+
+	void	setContact(Contact &contact);
+	void	printContacts();
 
 
 public:
 	PhoneBook();
-
 	~PhoneBook();
 
-	PhoneBook(const PhoneBook &phonebook);
-
-	PhoneBook &operator=(const PhoneBook &phonebook);
-
 	void addContact();
-
 	void searchContact();
-
-
 };
+
+#endif

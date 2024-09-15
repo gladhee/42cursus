@@ -1,21 +1,20 @@
 #include "PhoneBook.hpp"
-#include <iostream>
 
+int main(void)
+{
+	PhoneBook phoneBook;
+	std::string cmd;
 
-int	main() {
-	PhoneBook phonebook;
-	std::strign cmd;
-
-	whlie (true) {
+	while (true) {
 		try {
 			std::cout << "Available commands: ADD, SEARCH, EXIT" << std::endl;
 			std::cout << "Enter a command: ";
 			std::cin >> cmd;
 			if (cmd == "ADD") {
-				phonebook.addContact();
+				phoneBook.addContact();
 			}
 			else if (cmd == "SEARCH") {
-				phonebook.searchContact();
+				phoneBook.searchContact();
 			}
 			else if (cmd == "EXIT") {
 				std::cout << "Exiting the program..." << std::endl;

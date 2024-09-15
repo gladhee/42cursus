@@ -1,28 +1,38 @@
 #pragma once
 #ifndef CONTACT_HPP
-# define CONTACT_HPP
+#define CONTACT_HPP
 
-#include <string>
+#include <iostream>
+
+#define FIRST_NAME 0
+#define LAST_NAME 1
+#define NICKNAME 2
 
 class Contact {
 private:
-	std::string first_name;
-	std::string last_name;
-	std::string nick_name;
-	std::string phone_number;
-	std::string darkest_secret;
+	std::string _firstName;
+	std::string _lastName;
+	std::string _nickname;
+	std::string _phoneNumber;
+	std::string _darkestSecret;
 
 public:
 	Contact();
-
 	~Contact();
 
-	Contact(const Contact &contact);
+	void setFirstName(std::string firstName);
+	void setLastName(std::string lastName);
+	void setNickname(std::string nickname);
+	void setPhoneNumber(std::string phoneNumber);
+	void setDarkestSecret(std::string darkestSecret);
 
-	Contact &operator=(const Contact &contact);
+	std::string getFirstName();
+	std::string getLastName();
+	std::string getNickname();
+	std::string getPhoneNumber();
+	std::string getDarkestSecret();
 
-
+	std::string getShortened(int name);
 };
-
 
 #endif

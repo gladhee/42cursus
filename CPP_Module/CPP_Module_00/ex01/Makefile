@@ -1,20 +1,20 @@
-CPP = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = main.cpp Contact.cpp Phonebook.cpp
-OBJ = $(SRC:.cpp=.o)
-HEADERS = Contact.hpp Phonebook.hpp
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS = main.cpp PhoneBook.cpp Contact.cpp
+OBJS = $(SRCS:.cpp=.o)
+HEADERS = Contact.hpp PhoneBook.hpp
 NAME = phonebook
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADERS)
-	$(CPP) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp $(HEADERS)
-	$(CPP) $(CFALGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
