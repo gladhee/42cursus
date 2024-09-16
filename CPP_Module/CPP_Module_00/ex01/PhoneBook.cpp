@@ -1,5 +1,6 @@
 #include "PhoneBook.hpp"
 #include <iomanip>
+#include <cctype>
 
 PhoneBook::PhoneBook() {
 	_contactIndex = 0;
@@ -22,7 +23,6 @@ void PhoneBook::addContact() {
 }
 
 void PhoneBook::searchContact() {
-	std::stgring input;
 	int index;
 
 	this->printContacts();
@@ -42,39 +42,94 @@ void PhoneBook::searchContact() {
 		return;
 	}
 
+	std::cout << "index: " << index << std::endl;
 	std::cout << "First name: " << _contacts[index].getFirstName() << std::endl;
 	std::cout << "Last name: " << _contacts[index].getLastName() << std::endl;
 	std::cout << "Nickname: " << _contacts[index].getNickname() << std::endl;
-	std::cout << "Phone number: " << _contacts[index].getPhoneNumber() << std::endl;
-	std::cout << "Darkest secret: " << _contacts[index].getDarkestSecret() << std::endl;
+
+	std::cin.clear();
+	clearerr(stdin);
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+bool PhoneBook::isValidInput(std::string input) {
+	for (std::string::size_type i = 0; i < input.size(); ++i) {
+		if (!std::isprint(input[i])) {
+			std::cout << "Invalid input" << std::endl;
+			return false;
+		}
+	}
+
+	if (input.empty()) {
+		std::cout << "Invalid input" << std::endl;
+		return false;
+	}
+
+	if (input.find_first_not_of(input) != std::string::npos) {
+		std::cout << "Invalid input" << std::endl;
+		return false;
+	}
+
+	return true;
 }
 
 void PhoneBook::setContact(Contact &contact) {
 	std::string input;
 
 	std::cout << "Enter first name: ";
-	std::cin >> input;
+	std::getline(std::cin, input);
+
 	if (std::cin.eof()) throw std::exception();
+
+	if (!isValidInput(input)) {
+
+		return;
+	}
+
 	contact.setFirstName(input);
 
 	std::cout << "Enter last name: ";
-	std::cin >> input;
+	std::getline(std::cin, input);
+
 	if (std::cin.eof()) throw std::exception();
+
+	if (!isValidInput(input)) {
+		return;
+	}
+
 	contact.setLastName(input);
 
 	std::cout << "Enter nickname: ";
-	std::cin >> input;
+	std::getline(std::cin, input);
+
 	if (std::cin.eof()) throw std::exception();
+
+	if (!isValidInput(input)) {
+		return;
+	}
+
 	contact.setNickname(input);
 
 	std::cout << "Enter phone number: ";
-	std::cin >> input;
+	std::getline(std::cin, input);
+
 	if (std::cin.eof()) throw std::exception();
+
+	if (!isValidInput(input)) {
+		return;
+	}
+
 	contact.setPhoneNumber(input);
 
 	std::cout << "Enter darkest secret: ";
-	std::cin >> input;
+	std::getline(std::cin, input);
+
 	if (std::cin.eof()) throw std::exception();
+
+	if (!isValidInput(input)) {
+		return;
+	}
+
 	contact.setDarkestSecret(input);
 
 	std::cout << "Contact added successfully!" << std::endl;

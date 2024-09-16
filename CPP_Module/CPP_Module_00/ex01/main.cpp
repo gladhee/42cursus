@@ -9,7 +9,7 @@ int main(void)
 		try {
 			std::cout << "Available commands: ADD, SEARCH, EXIT" << std::endl;
 			std::cout << "Enter a command: ";
-			std::cin >> cmd;
+			std::getline(std::cin, cmd);
 			if (cmd == "ADD") {
 				phoneBook.addContact();
 			}

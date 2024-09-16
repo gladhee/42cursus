@@ -20,6 +20,7 @@ public:
 
 	void addContact();
 	void searchContact();
+	bool isValidInput(std::string input);
 };
 
 #endif
