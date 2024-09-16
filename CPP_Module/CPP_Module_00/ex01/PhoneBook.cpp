@@ -1,6 +1,9 @@
 #include "PhoneBook.hpp"
 #include <iomanip>
 #include <cctype>
+#include <cstdio>
+#include <string>
+#include <limits>
 
 PhoneBook::PhoneBook() {
 	_contactIndex = 0;
@@ -11,7 +14,13 @@ PhoneBook::~PhoneBook() {}
 void PhoneBook::addContact() {
 	Contact contact;
 
-	this->setContact(contact);
+	try {
+		this->setContact(contact);
+	} catch (std::exception &e) {
+		std::cin.clear();
+		clearerr(stdin);
+		return;
+	}
 	if (_contactIndex == 8) {
 		for (int i = 0; i < 7; i++) {
 			_contacts[i] = _contacts[i + 1];
@@ -52,25 +61,23 @@ void PhoneBook::searchContact() {
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-bool PhoneBook::isValidInput(std::string input) {
+void PhoneBook::isValidInput(std::string input) {
 	for (std::string::size_type i = 0; i < input.size(); ++i) {
 		if (!std::isprint(input[i])) {
 			std::cout << "Invalid input" << std::endl;
-			return false;
+			throw std::exception();
 		}
 	}
 
 	if (input.empty()) {
 		std::cout << "Invalid input" << std::endl;
-		return false;
+		throw std::exception();
 	}
 
 	if (input.find_first_not_of(input) != std::string::npos) {
 		std::cout << "Invalid input" << std::endl;
-		return false;
+		throw std::exception();
 	}
-
-	return true;
 }
 
 void PhoneBook::setContact(Contact &contact) {
@@ -81,10 +88,7 @@ void PhoneBook::setContact(Contact &contact) {
 
 	if (std::cin.eof()) throw std::exception();
 
-	if (!isValidInput(input)) {
-
-		return;
-	}
+	isValidInput(input);
 
 	contact.setFirstName(input);
 
@@ -93,9 +97,7 @@ void PhoneBook::setContact(Contact &contact) {
 
 	if (std::cin.eof()) throw std::exception();
 
-	if (!isValidInput(input)) {
-		return;
-	}
+	isValidInput(input);
 
 	contact.setLastName(input);
 
@@ -104,9 +106,7 @@ void PhoneBook::setContact(Contact &contact) {
 
 	if (std::cin.eof()) throw std::exception();
 
-	if (!isValidInput(input)) {
-		return;
-	}
+	isValidInput(input);
 
 	contact.setNickname(input);
 
@@ -115,9 +115,7 @@ void PhoneBook::setContact(Contact &contact) {
 
 	if (std::cin.eof()) throw std::exception();
 
-	if (!isValidInput(input)) {
-		return;
-	}
+	isValidInput(input);
 
 	contact.setPhoneNumber(input);
 
@@ -126,9 +124,7 @@ void PhoneBook::setContact(Contact &contact) {
 
 	if (std::cin.eof()) throw std::exception();
 
-	if (!isValidInput(input)) {
-		return;
-	}
+	isValidInput(input);
 
 	contact.setDarkestSecret(input);
 

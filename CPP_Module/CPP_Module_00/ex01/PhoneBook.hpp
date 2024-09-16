@@ -12,6 +12,7 @@ private:
 
 	void	setContact(Contact &contact);
 	void	printContacts();
+	void	isValidInput(std::string input);
 
 
 public:
@@ -20,7 +21,6 @@ public:
 
 	void addContact();
 	void searchContact();
-	bool isValidInput(std::string input);
 };
 
 #endif
