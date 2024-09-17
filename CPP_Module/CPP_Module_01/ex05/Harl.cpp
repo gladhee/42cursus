@@ -24,15 +24,22 @@ void Harl::complain(std::string level) {
 	(this->*getComplain(level))();
 }
 
-void (Harl::*Harl::getComplain(const std::string &level)) () const {
-	switch (level) {
-		case DEBUG:
+int Harl::getHashLevel(const std::string &level) const {
+	for (int i = 0; i < 4; i++) {
+		if (level == std::string(LEVELS[i]))
+			return i;
+	}
+}
+
+void (Harl::*Harl::getComplain(const std::string &level)) () {
+	switch (getLevel(level)) {
+		case DEBUG_N:
 			return &Harl::debug;
-		case INFO:
+		case INFO_N:
 			return &Harl::info;
-		case WARNING:
+		case WARNING_N:
 			return &Harl::warning;
-		case ERROR:
+		case ERROR_N:
 			return &Harl::error;
 		default:
 			throw std::invalid_argument("Invalid level");
