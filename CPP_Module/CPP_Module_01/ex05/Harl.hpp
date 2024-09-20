@@ -1,16 +1,14 @@
 #pragma once
-#ifndef HARL_HPP
-#define HARL_HPP
 
 #define DEBUG "DEBUG"
 #define INFO "INFO"
 #define WARNING "WARNING"
 #define ERROR "ERROR"
 
-#define DEBUG_H 0
-#define INFO_H 1
-#define WARNING_H 2
-#define ERROR_H 3
+#define DEBUG_H 3052704819
+#define INFO_H 1797280078
+#define WARNING_H 2095466140
+#define ERROR_H 1586791304
 
 #define HARL_DEBUG "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger. I really do!"
 #define HARL_INFO "I cannot believe adding extra bacon costs more money.\nYou didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!"
@@ -27,7 +25,7 @@ private:
 	void error(void);
 
 	void (Harl::*getComplain(const std::string &level)) ();
-	int getHashLevel(const std::string &level) const;
+	size_t getHashLevel(const std::string &level) const;
 
 
 public:
@@ -37,6 +35,3 @@ public:
 	void complain(std::string level);
 
 };
-
-
-#endif

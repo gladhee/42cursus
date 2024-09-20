@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdexcept>
 
 class Sed {
 private:
@@ -14,6 +15,7 @@ private:
 
 public:
 	Sed();
+	Sed(const std::string &filename, const std::string &str, const std::string &replace);
 	~Sed();
 
 	void replace();

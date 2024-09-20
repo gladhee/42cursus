@@ -1,4 +1,3 @@
-#pragma once
 #ifndef ZOMBIE_HPP
 #define ZOMBIE_HPP
 
@@ -10,18 +9,18 @@ class Zombie {
 private:
 	std::string _name;
 
+
 public:
 	Zombie();
 
-	Zombie(std::string name);
+	Zombie(const std::string &name);
 
 	~Zombie();
 
-	Zombie(const Zombie &zombie);
-
-	Zombie &operator=(const Zombie &zombie);
-
 	void announce(void);
 };
+
+Zombie	*newZombie(std::string name);
+void	randomChump(std::string name);
 
 #endif

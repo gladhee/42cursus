@@ -2,6 +2,12 @@
 
 Sed::Sed() {}
 
+Sed::Sed(const std::string &filename, const std::string &str, const std::string &replace) {
+	this->_filename = filename;
+	this->_str = str;
+	this->_replace = replace;
+}
+
 Sed::~Sed() {}
 
 void Sed::replace() {
@@ -18,11 +24,15 @@ void Sed::replace() {
 	while (std::getline(ifs, input)) {
 		size_t pos = 0;
 
-		while ((pos = line.find(str, pos)) != std::string::npos) {
-			input.replace(pos, str.length(), replace);
+		while ((pos = input.find(str, pos)) != std::string::npos) {
+			input.erase(pos, str.length());
+			input.insert(pos, replace);
 			pos += replace.length();
 		}
-		ofs << line << std::endl;
+		if (ifs.eof())
+			ofs << input;
+		else
+			ofs << input << std::endl;
 	}
 	ifs.close();
 	ofs.close();

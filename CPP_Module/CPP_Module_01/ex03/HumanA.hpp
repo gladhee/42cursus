@@ -9,6 +9,7 @@ private:
 	std::string _name;
 	Weapon &_weapon;
 
+
 public:
 	HumanA();
 
