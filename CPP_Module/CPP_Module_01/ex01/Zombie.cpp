@@ -1,5 +1,6 @@
 #include "Zombie.hpp"
 #include <iostream>
+#include <sstream>
 
 Zombie::Zombie(): _name("Zombie") {}
 
@@ -26,5 +27,8 @@ void Zombie::announce(void) {
 }
 
 void Zombie::setName(std::string name, int idx) {
-	this->_name = name + std::to_string(idx);
+	std::stringstream ss ;
+
+	ss << idx;
+	this->_name = name + ss.str();
 }

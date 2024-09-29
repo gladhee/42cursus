@@ -15,8 +15,8 @@ void Sed::replace() {
 	std::string str = getStr();
 	std::string replace = getReplace();
 
-	std::ifstream		ifs(filename);
-	std::ofstream		ofs(filename + ".replace");
+	std::ifstream		ifs(filename.c_str());
+	std::ofstream		ofs((filename + ".replace").c_str());
 	std::string			input;
 
 	if (!ifs.is_open() || !ofs.is_open())

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef FIXED_HPP
-#define FIXED_HPP
 
 #include <iostream>
 
@@ -21,12 +19,8 @@ public:
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
 
-	float toFloat(void) const;
 	int toInt(void) const;
-
+	float toFloat(void) const;
 };
 
-std::ostream &operator<<(std::ostream &os, const Fixed &obj);
-
-
-#endif
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed);

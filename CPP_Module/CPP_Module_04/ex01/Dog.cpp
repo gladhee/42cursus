@@ -2,6 +2,8 @@
 
 Dog::Dog(): Animal("Dog") {
 	std::cout << "Dog default constructor called" << std::endl;
+
+
 }
 
 Dog::Dog(const Dog &other): Animal(other) {
