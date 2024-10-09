@@ -1,38 +1,54 @@
 #include "Fixed.hpp"
+#include <cmath>
+#include <string>
 #include <iostream>
 
-Fixed::Fixed(): _value(0) {
-	std::cout << "Default constructor called" << std::endl;
-}
-
-Fixed::Fixed(const int value) {
-	std::cout << "Int constructor called" << std::endl;
-
-	_value = value << _fractionalBits;
-}
-
-Fixed::Fixed(const float value) {
-	std::cout << "Float constructor called" << std::endl;
-
-	_value = static_cast<int>(roundf(value * (1 << _fractionalBits)));
-}
+Fixed::Fixed(): value(0) {}
 
 Fixed::Fixed(const Fixed &other) {
-	std::cout << "Copy constructor called" << std::endl;
-
 	if (this == &other) return;
 
 	*this = other;
 }
 
-Fixed &Fixed::operator=(const Fixed &other) {
-	std::cout << "Copy assignment operator called" << std::endl;
+Fixed::~Fixed() {}
 
+Fixed &Fixed::operator=(const Fixed &other) {
 	if (this == &other) return *this;
 
-	this->_value = other.getRawBits();
+	this->value = other.getRawBits();
 
 	return *this;
+}
+
+int Fixed::getRawBits() const {
+	return this->value;
+}
+
+void Fixed::setRawBits(int const raw) {
+	this->value = raw;
+}
+
+Fixed::Fixed(const int value) {
+	this->value = value << this->fractionalBits;
+}
+
+Fixed::Fixed(const float value) {
+	this->value = static_cast<int>(roundf(value * (1 << this->fractionalBits)));
+}
+
+float Fixed::toFloat() const {
+	return (static_cast<float>(this->value) / static_cast<float>(1 << this->fractionalBits));
+}
+
+int Fixed::toInt() const {
+	return this->value >> this->fractionalBits;
+}
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed) {
+	out << fixed.toFloat();
+
+	return out;
 }
 
 Fixed Fixed::operator+(const Fixed &fixed) const {
@@ -54,13 +70,13 @@ Fixed Fixed::operator/(const Fixed &fixed) const {
 Fixed Fixed::operator++(int) {
 	Fixed tmp(*this);
 
-	++(*this);
+	this->value++;
 
 	return tmp;
 }
 
 Fixed &Fixed::operator++() {
-	(this->_value)++;
+	this->value++;
 
 	return *this;
 }
@@ -68,13 +84,13 @@ Fixed &Fixed::operator++() {
 Fixed Fixed::operator--(int) {
 	Fixed tmp(*this);
 
-	--(*this);
+	this->value--;
 
 	return tmp;
 }
 
 Fixed &Fixed::operator--() {
-	_value--;
+	this->value--;
 
 	return *this;
 }
@@ -117,33 +133,4 @@ Fixed &Fixed::max(Fixed &a, Fixed &b) {
 
 const Fixed &Fixed::max(const Fixed &a, const Fixed &b) {
 	return a > b ? a : b;
-}
-
-Fixed::~Fixed() {
-	std::cout << "Destructor called" << std::endl;
-}
-
-int Fixed::getRawBits() const {
-	std::cout << "getRawBits member function called" << std::endl;
-
-	return _value;
-}
-
-void Fixed::setRawBits(const int raw) {
-	std::cout << "setRawBits member function called" << std::endl;
-	_value = raw;
-}
-
-float Fixed::toFloat() const {
-	return static_cast<float>(_value) / (1 << _fractionalBits);
-}
-
-int Fixed::toInt() const {
-	return _value >> _fractionalBits;
-}
-
-std::ostream &operator<<(std::ostream &out, const Fixed &fixed) {
-	out << fixed.toFloat();
-
-	return out;
 }
