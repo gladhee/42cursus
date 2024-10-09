@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include "iostream"
 
 class Fixed {
 private:
@@ -10,17 +10,18 @@ private:
 
 public:
 	Fixed();
-	Fixed(const int value);
-	Fixed(const float value);
 	Fixed(const Fixed &fixed);
 	~Fixed();
 	Fixed &operator=(const Fixed &fixed);
 
+	Fixed(const int value);
+	Fixed(const float value);
+
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
 
-	int toInt(void) const;
 	float toFloat(void) const;
+	int toInt(void) const;
 };
 
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed);

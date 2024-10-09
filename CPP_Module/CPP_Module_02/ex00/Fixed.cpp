@@ -5,19 +5,20 @@ Fixed::Fixed(): _value(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &fixed) {
-	if (this == &fixed) {
-		std::cout << "Self copy constructor called" << std::endl;
-		return ;
-	}
-
+Fixed::Fixed(const Fixed &other) {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = fixed;
+
+	if (this == &other) return;
+
+	*this = other;
 }
 
-Fixed &Fixed::operator=(const Fixed &fixed) {
+Fixed &Fixed::operator=(const Fixed &other) {
 	std::cout << "Copy assignment operator called" << std::endl;
-	_value = fixed.getRawBits();
+
+	if (this == &other) return *this;
+
+	this->_value = other.getRawBits();
 
 	return *this;
 }
