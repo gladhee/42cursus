@@ -48,6 +48,5 @@ int	main(void)
 	delete test;
 	delete testCat;
 
-
 	return (0);
 }

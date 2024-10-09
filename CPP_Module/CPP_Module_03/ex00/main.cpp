@@ -1,18 +1,18 @@
 #include "ClapTrap.hpp"
 
 int main() {
-	ClapTrap heechoi("heechoi");
-	ClapTrap dongclee("dongclee");
+	std::cout << "---- TEST 1: Creating ClapTrap and basic functionality ----" << std::endl;
+    ClapTrap clap("Clappy");
 
-	heechoi.attack("dongclee");
-	dongclee.takeDamage(3);
-	dongclee.beRepaired(2);
+    clap.attack("target1");
 
-	dongclee.attack("heechoi");
-	heechoi.takeDamage(5);
-	heechoi.beRepaired(2);
-	heechoi.takeDamage(9);
-	heechoi.beRepaired(2);
+    clap.takeDamage(5);
+
+    clap.beRepaired(3);
+
+	clap.takeDamage(1000);
+
+	clap.attack("target2");
 
 	return 0;
 }

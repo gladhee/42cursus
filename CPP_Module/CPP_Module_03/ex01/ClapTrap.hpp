@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
 
 #include <iostream>
 #include <string>
@@ -24,3 +25,5 @@ public:
 
 	bool isDeadPrint() const;
 };
+
+#endif
