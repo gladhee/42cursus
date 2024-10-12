@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BRAIN_HPP
+#define BRAIN_HPP
 
 #include <iostream>
 
@@ -15,3 +16,5 @@ public:
 	void setIdea(int index, std::string idea);
 	std::string getIdea(int index) const;
 };
+
+#endif

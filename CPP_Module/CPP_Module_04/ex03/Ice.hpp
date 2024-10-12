@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ICE_HPP
+#define ICE_HPP
 
 #include "AMateria.hpp"
 
@@ -13,3 +14,5 @@ public:
 	virtual AMateria* clone() const;
 	virtual void use(ICharacter& target);
 };
+
+#endif
