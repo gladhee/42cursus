@@ -1,11 +1,12 @@
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 
-#include <iostream>
+#include <string>
 
 class Animal {
+
 protected:
-	std::string _type;
+	std::string type;
 
 
 public:
@@ -17,6 +18,7 @@ public:
 
 	std::string getType() const;
 	virtual void makeSound() const;
+
 };
 
 #endif

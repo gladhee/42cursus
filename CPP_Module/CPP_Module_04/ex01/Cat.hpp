@@ -5,9 +5,9 @@
 #include "Brain.hpp"
 
 class Cat: public Animal {
-private:
-	Brain *brain;
 
+private:
+	Brain* brain;
 
 public:
 	Cat();
@@ -16,6 +16,8 @@ public:
 	~Cat();
 
 	void makeSound() const;
+	Brain* getBrain() const;
+
 };
 
 #endif

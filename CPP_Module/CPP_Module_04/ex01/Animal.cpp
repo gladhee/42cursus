@@ -1,11 +1,12 @@
 #include "Animal.hpp"
+#include <iostream>
 
-Animal::Animal(): _type("Animal") {
+Animal::Animal(): type("Animal") {
 	std::cout << "Animal default constructor called" << std::endl;
 }
 
-Animal::Animal(std::string type): _type(type) {
-	std::cout << "Animal type: " << this->_type << " constructor called" << std::endl;
+Animal::Animal(std::string type): type(type) {
+	std::cout << "Animal type: " << this->type<< " constructor called" << std::endl;
 }
 
 Animal::Animal(const Animal &other) {
@@ -21,17 +22,17 @@ Animal &Animal::operator=(const Animal &other) {
 
 	if (this == &other) return *this;
 
-	this->_type = other._type;
+	this->type= other.type;
 
 	return *this;
 }
 
 Animal::~Animal() {
-	std::cout << "Animal type: " << this->_type << " destructor called" << std::endl;
+	std::cout << "Animal type: " << this->type<< " destructor called" << std::endl;
 }
 
 std::string Animal::getType() const {
-	return this->_type;
+	return this->type;
 }
 
 void Animal::makeSound() const {

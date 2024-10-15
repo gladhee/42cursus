@@ -1,11 +1,13 @@
 #ifndef BRAIN_HPP
 #define BRAIN_HPP
 
-#include <iostream>
+#include <string>
 
 class Brain {
+
 private:
 	std::string ideas[100];
+
 
 public:
 	Brain();
@@ -13,8 +15,9 @@ public:
 	Brain &operator=(const Brain &other);
 	~Brain();
 
-	void setIdea(int index, std::string idea);
-	std::string getIdea(int index) const;
+	std::string getIdea(const int index) const;
+	void setIdea(const int index, const std::string idea);
+
 };
 
 #endif
