@@ -6,6 +6,9 @@
 
 int main()
 {
+
+//	 const Animal *a = new Animal(); // can be instantiated
+
 	const int n = 10;
 	Animal *animals[n];
 
@@ -31,7 +34,7 @@ int main()
 	const Cat *j = new Cat(*i);
 	j->getBrain()->setIdea(0, "I'm a persian");
 
-	std::cout << i->getBrain()->getIdea(0) << " " << (i->getBrain()) << std::endl;
+	std::cout << i->getBrain()->getIdea(1000000) << " " << (i->getBrain()) << std::endl;
 	std::cout << j->getBrain()->getIdea(0) << " " << (j->getBrain()) << std::endl;
 
 	delete i;
