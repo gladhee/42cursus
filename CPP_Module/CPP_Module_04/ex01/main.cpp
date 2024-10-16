@@ -4,8 +4,14 @@
 #include "Brain.hpp"
 #include <iostream>
 
+//void leaks(void) {
+//	system("leaks brain");
+//}
+
 int main()
 {
+//	atexit(leaks);
+
 	const int n = 10;
 	Animal *animals[n];
 

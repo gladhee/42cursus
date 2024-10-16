@@ -4,7 +4,13 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
+//void leaks(void) {
+//	system("leaks animal");
+//}
+
 int	main(void) {
+
+//	atexit(leaks);
 
 	const Animal* meta = new Animal();
 	const Animal* dog	= new Dog();

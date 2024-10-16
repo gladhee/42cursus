@@ -1,22 +1,22 @@
 #include "Floor.hpp"
 
-Floor *Floor::_floor = NULL;    // static member initialization
+Floor *Floor::floor = NULL;    // static member initialization
 
 Floor::Floor() {
-	this->_materia = new MateriaList;
-	this->_materia->m = NULL;
-	this->_materia->next = NULL;
+	this->materia = new MateriaList;
+	this->materia->m = NULL;
+	this->materia->next = NULL;
 }
 
 
 Floor::Floor(const Floor &other) {
 	if (this == &other)
 		return;
-	this->_materia = new MateriaList;
-	MateriaList *tmp = other._materia;
+	this->materia = new MateriaList;
+	MateriaList *tmp = other.materia;
 	while (tmp) {
-		this->_materia->m = tmp->m;
-		this->_materia->next = new MateriaList;
+		this->materia->m = tmp->m;
+		this->materia->next = new MateriaList;
 		tmp = tmp->next;
 	}
 }
@@ -24,24 +24,25 @@ Floor::Floor(const Floor &other) {
 Floor &Floor::operator=(const Floor &other) {
 	if (this == &other)
 		return *this;
-	discardAllMateria();
-	this->_materia = new MateriaList;
-	MateriaList *node = other._materia;
+	this->discardAllMateria();
+	this->materia = new MateriaList;
+	MateriaList *node = other.materia;
 	while (node) {
-		this->_materia->m = node->m;
-		this->_materia->next = new MateriaList;
+		this->materia->m = node->m;
+		this->materia->next = new MateriaList;
 		node = node->next;
 	}
+
 	return *this;
 }
 
 Floor::~Floor() {
 	discardAllMateria();
-	delete this->_materia;
+	delete this->materia;
 }
 
 bool Floor::hasBeenDropped(AMateria *m) {
-	MateriaList *node = Floor::GetInstance()->_materia;
+	MateriaList *node = GetInstance()->materia;
 	while (node) {
 		if (node->m == m)
 			return true;
@@ -51,20 +52,19 @@ bool Floor::hasBeenDropped(AMateria *m) {
 }
 
 void Floor::dropMateria(AMateria *m) {
-	if (!this->_materia) {
-		this->_materia = new MateriaList;
-		this->_materia->m = m;
-		this->_materia->next = NULL;
+	if (!this->materia) {
+		this->materia = new MateriaList;
+		this->materia->m = m;
+		this->materia->next = NULL;
 		return;
 	}
-	if (!this->_materia->m) {
-		this->_materia->m = m;
+	if (!this->materia->m) {
+		this->materia->m = m;
 		return;
 	}
-	if (Floor::hasBeenDropped(m))
-		return;
+	if (hasBeenDropped(m)) return;
 
-	MateriaList *node = this->_materia;
+	MateriaList *node = this->materia;
 	while (node->next)
 		node = node->next;
 	MateriaList *newNode = new MateriaList;
@@ -73,32 +73,11 @@ void Floor::dropMateria(AMateria *m) {
 	node->next = newNode;
 }
 
-AMateria *Floor::pickUpMateria(const std::string &type) {
-	if (!this->_materia || !this->_materia->m)
-		return NULL;
-
-	MateriaList *prev = NULL;
-	MateriaList *node = this->_materia;
-	while (node) {
-		if (node->m->getType() == type) {
-			AMateria *m = node->m;
-			if (!prev)
-				this->_materia = node->next;
-			else
-				prev->next = node->next;
-			delete node;
-			return m;
-		}
-		prev = node;
-		node = node->next;
-	}
-	return NULL;
-}
-
 void Floor::discardAllMateria() {
 	MateriaList *node;
 	MateriaList *next;
-	node = this->_materia;
+	node = this->materia;
+
 	while (node) {
 		next = node->next;
 		delete node->m;
@@ -108,21 +87,8 @@ void Floor::discardAllMateria() {
 }
 
 Floor *Floor::GetInstance() {
-	if (!Floor::_floor)
-		Floor::_floor = new Floor();
-	return Floor::_floor;
-}
+	if (!Floor::floor)
+		Floor::floor = new Floor();
 
-unsigned int Floor::getMateriaCount() const {
-	if (!this->_materia || !this->_materia->m)
-		return 0;
-
-	unsigned int count = 0;
-	MateriaList *node = this->_materia;
-	while (node) {
-		if (node->m)
-			count++;
-		node = node->next;
-	}
-	return count;
+	return Floor::floor;
 }

@@ -11,29 +11,21 @@ typedef struct MateriaList {
 class Floor {
 
 private:
-	static Floor *_floor;
-	MateriaList *_materia;
-
-	void discardAllMateria();
+	static Floor *floor;
+	MateriaList *materia;
 
 	Floor();
+	Floor(const Floor &other);
+	Floor &operator=(const Floor &other);
 
-	Floor(const Floor &);
-
-	Floor &operator=(const Floor &);
+	void discardAllMateria();
 
 
 public:
 	virtual ~Floor();
 
 	static Floor *GetInstance();
-
 	void dropMateria(AMateria *);
-
-	AMateria *pickUpMateria(std::string const &type);
-
-	unsigned int getMateriaCount() const;
-
 	static bool hasBeenDropped(AMateria *m);
 
 };

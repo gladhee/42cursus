@@ -63,5 +63,6 @@ AMateria* MateriaSource::createMateria(std::string const & type) {
 			return this->materias[i]->clone();
 		}
 	}
+
 	return NULL;
 }

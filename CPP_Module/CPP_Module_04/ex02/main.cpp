@@ -4,9 +4,13 @@
 #include "Brain.hpp"
 #include <iostream>
 
+//void leaks(void) {
+//	system("leaks abstract");
+//}
+
 int main()
 {
-
+//	atexit(leaks);
 //	 const Animal *a = new Animal(); // can be instantiated
 
 	const int n = 10;
