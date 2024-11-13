@@ -4,9 +4,11 @@
 
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137) {}
+ShrubberyCreationForm::ShrubberyCreationForm()
+		: AForm("ShrubberyCreationForm", REQUIRED_GRADE_TO_SIGN, REQUIRED_GRADE_TO_EXEC) {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm", 145, 137, target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target)
+		: AForm("ShrubberyCreationForm", REQUIRED_GRADE_TO_SIGN, REQUIRED_GRADE_TO_EXEC), target(target) {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) : AForm(other) {}
 
@@ -14,31 +16,31 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	if (this == &other)
 		return (*this);
 
-	AForm::operator=(other);
-
 	return (*this);
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
-void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
-	std::ofstream(executor.getName() + "_shrubbery");
+void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
+	if (!this->getIsSigned())
+		throw AForm::NotSignedException();
 
+	if (executor.getGrade() > this->getExecGrade())
+		throw Bureaucrat::GradeTooLowException();
+
+	std::ofstream file;
+	file.open((target + "_shrubbery").c_str());
 	if (!file.is_open())
 		throw std::runtime_error("File open error");
-
-	file << "       _-_\n"
-			"    /~~   ~~\\\n"
-			" /~~         ~~\\\n"
-			"{               }\n"
-			" \\  _-     -_  /\n"
-			"   ~  \\\\ //  ~\n"
-			"_- -   | | _- _\n"
-			"  _ -  | |   -_\n"
-			"    _ - | | _-_\n"
-			"        | |\n"
-			"        | |\n"
-			"        | |";
-
+	file << "       _-_\n";
+	file << "    /~~   ~~\\\n";
+	file << " /~~         ~~\\\n";
+	file << "{               }\n";
+	file << "{               }\n";
+	file << " \\  _-     -_  /\n";
+	file << "   ~  \\\\ //  ~\n";
+	file << "_- -   | | _- _\n";
+	file << "  _ -  | |   -_\n";
+	file << "      // \\\\\n";
 	file.close();
 }

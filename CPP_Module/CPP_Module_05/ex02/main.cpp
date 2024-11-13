@@ -1,33 +1,36 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
-int main() {
+int main(void) {
+	Bureaucrat berau("beru", 1);
+	ShrubberyCreationForm form("houssam");
+	RobotomyRequestForm form2("Robot");
+	PresidentialPardonForm form3("Zaphod Beeblebrox");
 
-	Bureaucrat a("A", 1);
-	Bureaucrat b("B", 150);
-	Bureaucrat c("C", 75);
+	berau.signForm(form);
+	berau.executeForm(form);
 
-	Form f("F", 1, 1);
-	Form g("G", 1, 1);
-	Form h("H", 75, 75);
+	berau.signForm(form2);
+	berau.executeForm(form2);
 
-	try {
-		Form i("I", 151, 151);
-	} catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	berau.signForm(form3);
+	berau.executeForm(form3);
 
-	try {
-		Form j("J", 1, 0);
-	} catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	Bureaucrat berau2("beru2", 150);
+	ShrubberyCreationForm form4("houssam2");
+	RobotomyRequestForm form5("Robot");
+	PresidentialPardonForm form6("Zaphod Beeblebrox");
 
-	a.signForm(f);
-	a.signForm(f);
-	b.signForm(g);
+	berau2.signForm(form4);
+	berau2.executeForm(form4);
 
-	b.signForm(h);
+	berau2.signForm(form5);
+	berau2.executeForm(form5);
 
-	return 0;
+	berau2.signForm(form6);
+	berau2.executeForm(form6);
+
+	return (0);
 }

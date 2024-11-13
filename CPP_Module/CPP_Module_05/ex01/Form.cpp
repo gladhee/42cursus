@@ -14,15 +14,14 @@ Form &Form::operator=(const Form &other) {
 
 Form::Form(const std::string &name, int signGrade, int execGrade)
 		: name(name), isSigned(false), signGrade(signGrade), execGrade(execGrade) {
-	if (signGrade < 1 || execGrade < 1) {
+	if (signGrade < MAX_GRADE || execGrade < MAX_GRADE) {
 		throw Form::GradeTooHighException();
 	}
 
-	if (signGrade > 150 || execGrade > 150) {
+	if (signGrade > MIN_GRADE || execGrade > MIN_GRADE) {
 		throw Form::GradeTooLowException();
 	}
 }
-
 
 Form::Form(const Form &other)
 		: name(other.name), isSigned(other.isSigned), signGrade(other.signGrade), execGrade(other.execGrade) {

@@ -11,7 +11,7 @@
 
 class Bureaucrat;
 
-class Form {
+class AForm {
 
 	static const int MAX_GRADE = 1;
 	static const int MIN_GRADE = 150;
@@ -22,16 +22,16 @@ private:
 	const int signGrade;
 	const int execGrade;
 
-	Form();
+	AForm();
 
-	Form &operator=(const Form &other);
+	AForm &operator=(const AForm &other);
 
 public:
-	Form(const std::string &name, int signGrade, int execGrade);
+	AForm(const std::string &name, int signGrade, int execGrade);
 
-	Form(const Form &other);
+	AForm(const AForm &other);
 
-	virtual ~Form();
+	virtual ~AForm();
 
 	const std::string &getName() const;
 
@@ -57,8 +57,13 @@ public:
 		virtual const char *what() const throw();
 	};
 
+	class NotSignedException : public std::exception {
+	public:
+		virtual const char *what() const throw();
+	};
+
 };
 
-std::ostream &operator<<(std::ostream &out, const Form &form);
+std::ostream &operator<<(std::ostream &out, const AForm &form);
 
 #endif //CPP_MODULE_FORM_HPP

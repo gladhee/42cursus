@@ -6,10 +6,16 @@
 #define CPP_MODULE_SHRUBBERYCREATIONFORM_HPP
 
 #include "AForm.hpp"
+#include <fstream>
 
 class ShrubberyCreationForm : public AForm {
 
+	static const int REQUIRED_GRADE_TO_EXEC = 137;
+	static const int REQUIRED_GRADE_TO_SIGN = 145;
+
 private:
+	const std::string target;
+
 	ShrubberyCreationForm();
 
 	ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
@@ -21,7 +27,8 @@ public:
 
 	virtual ~ShrubberyCreationForm();
 
-	virtual void execute(Bureaucrat const &executor) const;
+
+	virtual void execute(const Bureaucrat &executor) const;
 
 };
 

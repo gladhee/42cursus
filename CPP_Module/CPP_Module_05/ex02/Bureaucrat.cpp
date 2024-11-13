@@ -3,7 +3,7 @@
 //
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat(): name("default"), grade(150) {}
 
@@ -51,7 +51,7 @@ void Bureaucrat::decrementGrade() {
 	this->grade++;
 }
 
-void Bureaucrat::signForm(Form &form) {
+void Bureaucrat::signForm(AForm &form) {
 	if (form.getIsSigned()) {
 		std::cout << form.getName() << " is already signed." << std::endl;
 
@@ -67,6 +67,18 @@ void Bureaucrat::signForm(Form &form) {
 	}
 
 	std::cout << this->name << " signed " << form.getName() << "." << std::endl;
+}
+
+void Bureaucrat::executeForm(const AForm &form) const {
+	try {
+		form.execute(*this);
+	} catch (std::exception &e) {
+		std::cout << this->name << " couldn’t execute " << form.getName() << " because " << e.what() << std::endl;
+
+		return;
+	}
+
+	std::cout << this->name << " executed " << form.getName() << "." << std::endl;
 }
 
 const std::string &Bureaucrat::getName() const {

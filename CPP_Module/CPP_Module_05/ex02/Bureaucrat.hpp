@@ -8,9 +8,9 @@
 #include <string>
 #include <exception>
 #include <iostream>
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 
@@ -18,7 +18,7 @@ class Bureaucrat {
 	static const int MIN_GRADE = 150;
 
 private:
-	std::string const name;
+	const std::string  name;
 	int grade;
 
 	Bureaucrat();
@@ -38,7 +38,9 @@ public:
 
 	void decrementGrade();
 
-	void signForm(Form &form);
+	void signForm(AForm &form);
+
+	void executeForm(const AForm & form) const;
 
 	const std::string &getName() const;
 
