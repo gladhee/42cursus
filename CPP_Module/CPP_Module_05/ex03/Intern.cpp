@@ -33,10 +33,14 @@ AForm *Intern::createPresidentialPardonForm(const std::string &target) {
 }
 
 AForm *Intern::makeForm(const std::string &formName, const std::string &target) {
-	AForm* (*form[3])(const std::string&) = { Intern::createShrubberyCreationForm, Intern::createRobotomyRequestForm, Intern::createPresidentialPardonForm };
+	AForm *(*form[3])(const std::string &) = {
+			Intern::createShrubberyCreationForm,
+			Intern::createRobotomyRequestForm,
+			Intern::createPresidentialPardonForm
+	};
 
 	for (int i = 0; i < 3; i++) {
-		AForm* selectedForm = form[i](target);
+		AForm *selectedForm = form[i](target);
 		if (equals(selectedForm->getName(), formName)) {
 			std::cout << "Intern creates " << selectedForm->getName() << std::endl;
 
