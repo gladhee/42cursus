@@ -1,11 +1,12 @@
 //
-// Created by Heesung Choi on 11/13/24.
+// Created by Heesung Choi on 11/14/24.
 //
 
 #include <iostream>
-#include <Array.hpp>
+#include "Array.hpp"
 
 #define MAX_VAL 750
+
 int main(int, char**)
 {
 	Array<int> numbers(MAX_VAL);
