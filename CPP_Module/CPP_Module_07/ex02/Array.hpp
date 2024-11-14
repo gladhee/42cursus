@@ -17,14 +17,16 @@ private:
 
 
 public:
-	Array() : array(NULL), size(0) {}
+	Array() : array(new T[0]), size(0) {}
 
 	Array(unsigned int n) : size(n) {
 		array = new T[n];
 	}
 
-	Array(const Array &other) {
-		*this = other;
+	Array(const Array &other): array(new T[other.size]), size(other.size) {
+		for (unsigned int i = 0; i < size; ++i) {
+			array[i] = other.array[i];
+		}
 	}
 
 	~Array() {
