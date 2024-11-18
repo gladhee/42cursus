@@ -13,13 +13,32 @@ int main() {
 		vec.push_back(i * 2);
 	}
 
-	for (int i = 0; i < 10; i++) {
-		std::vector<int>::iterator it = easyfind(vec, i);
-		if (it != vec.end()) {
-			std::cout << "Found " << i << std::endl;
-		} else {
-			std::cout << "Not found " << i << std::endl;
-		}
+	try {
+		std::vector<int>::iterator it = easyfind(vec, 1);
+		std::cout << "Value found: " << *it << std::endl;
+	} catch	(std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
+
+	try {
+		std::vector<int>::iterator it = easyfind(vec, 2);
+		std::cout << "Value found: " << *it << std::endl;
+	} catch	(std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
+
+	try {
+		std::vector<int>::iterator it = easyfind(vec, 3);
+		std::cout << "Value found: " << *it << std::endl;
+	} catch	(std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
+
+	try {
+		std::vector<int>::iterator it = easyfind(vec, 4);
+		std::cout << "Value found: " << *it << std::endl;
+	} catch	(std::exception &e) {
+		std::cout << e.what() << std::endl;
 	}
 
 	return 0;
