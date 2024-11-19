@@ -4,8 +4,21 @@
 
 #include "MutantStack.hpp"
 #include <iostream>
+#include <list>
+
+void subject();
+
+void listCase();
 
 int main() {
+	subject();
+	std::cout << "----------------------------" << std::endl;
+	listCase();
+
+	return 0;
+}
+
+void subject() {
 	MutantStack<int> mstack;
 	mstack.push(5);
 	mstack.push(17);
@@ -27,5 +40,26 @@ int main() {
 		++it;
 	}
 	std::stack<int> s(mstack);
-	return 0;
+}
+
+void listCase() {
+	std::list<int> list;
+	list.push_back(5);
+	list.push_back(17);
+	std::cout << list.back() << std::endl;
+	list.pop_back();
+	std::cout << list.size() << std::endl;
+	list.push_back(3);
+	list.push_back(5);
+	list.push_back(737);
+	list.push_back(0);
+	std::list<int>::iterator it = list.begin();
+	std::list<int>::iterator ite = list.end();
+	++it;
+	--it;
+	while (it != ite) {
+		std::cout << *it << std::endl;
+		++it;
+	}
+	std::list<int> s(list);
 }
