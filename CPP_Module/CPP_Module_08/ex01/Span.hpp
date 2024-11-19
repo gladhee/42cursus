@@ -5,32 +5,40 @@
 #ifndef CPP_MODULE_SPAN_HPP
 #define CPP_MODULE_SPAN_HPP
 
-#include <exception>
-#include <iostream>
 #include <algorithm>
 #include <vector>
 
 class Span {
 
+	static const int SPAN_MIN_SIZE = 2;
+
 private:
 	unsigned int n;
-	vector<int> vec;
+	std::vector<int> vec;
 
 	Span();
 
-	void validateEnoughNumbers();
+	void validateEnoughNumbers() const;
 
-	void validateSpanDoesNotSave();
+	template<typename T>
+	void validateSpanIsFull(T number) const {
+		if (vec.size() + number > n) {
+			throw IsFullException();
+		}
+	}
 
-	class SpanDoesNotSaveException : public std::exception {
+	void validateSpanIsFull(int number) const;
+
+	class IsFullException : public std::exception {
 	public:
 		virtual const char *what() const throw();
 	};
 
-	class SpanNotEnoughNumbersException : public std::exception {
+	class NotEnoughNumbersException : public std::exception {
 	public:
 		virtual const char *what() const throw();
 	};
+
 
 public:
 	Span(unsigned int n);
@@ -41,16 +49,30 @@ public:
 
 	~Span();
 
+	void addNumber(int number);
+
 	template<typename T>
-	void addNumber(T number) {
-		validateSpanDoesNotSave();
-		vec.push_back(number);
+	void addNumber(T &container) {
+		validateSpanIsFull(container.size());
+		typename T::iterator it = container.begin();
+		while (it != container.end()) {
+			vec.push_back(*it);
+			it++;
+		}
 	}
 
+	template<typename T>
+	void addNumber(T begin, T end) {
+		validateSpanIsFull(end - begin);
+		while (begin != end) {
+			vec.push_back(*begin);
+			begin++;
+		}
+	}
 
-	int shortestSpan();
+	unsigned int shortestSpan();
 
-	int longestSpan();
+	unsigned int longestSpan();
 
 
 };
