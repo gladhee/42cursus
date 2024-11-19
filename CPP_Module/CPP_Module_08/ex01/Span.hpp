@@ -27,8 +27,6 @@ private:
 		}
 	}
 
-	void validateSpanIsFull(int number) const;
-
 	class IsFullException : public std::exception {
 	public:
 		virtual const char *what() const throw();
