@@ -59,7 +59,7 @@ std::string RPN::calculate() {
 	return operands.top();
 }
 
-void RPN::processOperator(const std::string &token) {
+void RPN::processOperator(const std::string& token) {
 	if (operands.size() < 2) {
 		throw std::invalid_argument("Invalid input: not enough operands for operation.");
 	}
@@ -71,10 +71,13 @@ void RPN::processOperator(const std::string &token) {
 
 	int result;
 	if (token == "+") {
+		checkAdditionOverflow(operand2, operand1);
 		result = operand2 + operand1;
 	} else if (token == "-") {
+		checkSubtractionOverflow(operand2, operand1);
 		result = operand2 - operand1;
 	} else if (token == "*") {
+		checkMultiplicationOverflow(operand2, operand1);
 		result = operand2 * operand1;
 	} else if (token == "/") {
 		if (operand1 == 0) {
@@ -105,6 +108,33 @@ int RPN::stringToInt(const std::string &str) {
 		throw std::invalid_argument("Invalid number: " + str);
 	}
 	return value;
+}
+
+void RPN::checkAdditionOverflow(int a, int b) {
+	if ((b > 0 && a > INT_MAX - b) || (b < 0 && a < INT_MIN - b)) {
+		throw std::overflow_error("Addition overflow: " + intToString(a) + " + " + intToString(b));
+	}
+}
+
+void RPN::checkSubtractionOverflow(int a, int b) {
+	if ((b < 0 && a > INT_MAX + b) || (b > 0 && a < INT_MIN + b)) {
+		throw std::overflow_error("Subtraction overflow: " + intToString(a) + " - " + intToString(b));
+	}
+}
+
+void RPN::checkMultiplicationOverflow(int a, int b) {
+	if (a > 0 && b > 0 && a > INT_MAX / b) {
+		throw std::overflow_error("Multiplication overflow: " + intToString(a) + " * " + intToString(b));
+	}
+	if (a > 0 && b < 0 && b < INT_MIN / a) {
+		throw std::overflow_error("Multiplication overflow: " + intToString(a) + " * " + intToString(b));
+	}
+	if (a < 0 && b > 0 && a < INT_MIN / b) {
+		throw std::overflow_error("Multiplication overflow: " + intToString(a) + " * " + intToString(b));
+	}
+	if (a < 0 && b < 0 && a < INT_MAX / b) {
+		throw std::overflow_error("Multiplication overflow: " + intToString(a) + " * " + intToString(b));
+	}
 }
 
 std::list <std::string> RPN::split(const std::string &input, char delimiter) {

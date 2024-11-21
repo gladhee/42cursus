@@ -12,6 +12,7 @@
 #include <list>
 #include <cctype>
 #include <sstream>
+#include <climits>
 
 class RPN {
 
@@ -26,6 +27,12 @@ private:
 	static std::string intToString(int value);
 
 	static int stringToInt(const std::string &str);
+
+	static void checkAdditionOverflow(int a, int b);
+
+	static void checkSubtractionOverflow(int a, int b);
+
+	static void checkMultiplicationOverflow(int a, int b);
 
 	static std::list <std::string> split(const std::string &input, char delimiter);
 
