@@ -17,6 +17,14 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other) {
 	return *this;
 }
 
-void ScalarConverter::convert(std::string const &input) {
+bool ScalarConverter::isChar(const std::string &str) {
+	if (str.length() == 1 && !std::isdigit(str[0])) {
+		return true;
+	}
+	return false;
+}
+
+bool ScalarConverter::isInt(const std::string &str) {
+	if ()
 
 }

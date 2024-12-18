@@ -15,7 +15,8 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &oth
 PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &other) {
 	if (this == &other)
 		return (*this);
-	return (*this);}
+	return (*this);
+}
 
 PresidentialPardonForm::~PresidentialPardonForm() {}
 

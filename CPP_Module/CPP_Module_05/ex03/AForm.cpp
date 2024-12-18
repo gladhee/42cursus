@@ -4,7 +4,7 @@
 
 #include "AForm.hpp"
 
-AForm::AForm(): name("default"), signGrade(0), execGrade(0) {}
+AForm::AForm() : name("default"), signGrade(0), execGrade(0) {}
 
 AForm &AForm::operator=(const AForm &other) {
 	if (this == &other) return *this;

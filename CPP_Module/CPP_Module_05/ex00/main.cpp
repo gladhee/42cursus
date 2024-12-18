@@ -27,14 +27,21 @@ int main() {
 		std::cout << e.what() << std::endl;
 	}
 
-	Bureaucrat e("e", 75);
-	std::cout << e << std::endl;
-	e.decrementGrade();
-	std::cout << e << std::endl;
+	try {
+		Bureaucrat e("e", 75);
+		std::cout << e << std::endl;
+		e.decrementGrade();
+		std::cout << e << std::endl;
+	} catch (Bureaucrat::GradeTooLowException &e) {
+		std::cout << e.what() << std::endl;
+	}
 
-	Bureaucrat f("f", 75);
-	std::cout << f << std::endl;
-	f.incrementGrade();
-	std::cout << f << std::endl;
-
+	try {
+		Bureaucrat f("f", 75);
+		std::cout << f << std::endl;
+		f.incrementGrade();
+		std::cout << f << std::endl;
+	} catch (Bureaucrat::GradeTooHighException &e) {
+		std::cout << e.what() << std::endl;
+	}
 }

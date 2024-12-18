@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS = main.cpp SclalarConveter.cpp
 OBJS = $(SRCS:.cpp=.o)
 HEADER = SclalarConveter.hpp
-NAME = harl
+NAME = sclalarConveter
 
 all: $(NAME)
 

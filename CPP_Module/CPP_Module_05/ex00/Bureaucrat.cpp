@@ -4,9 +4,9 @@
 
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(): name("default"), grade(150) {}
+Bureaucrat::Bureaucrat() : name("default"), grade(150) {}
 
-Bureaucrat::Bureaucrat(const std::string &name, int grade): name(name), grade(grade) {
+Bureaucrat::Bureaucrat(const std::string &name, int grade) : name(name), grade(grade) {
 	if (grade < MAX_GRADE) {
 		throw Bureaucrat::GradeTooHighException();
 	}
@@ -16,10 +16,10 @@ Bureaucrat::Bureaucrat(const std::string &name, int grade): name(name), grade(gr
 	}
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &other) {
-	if (this == &other) return;
-
-	this->grade = other.getGrade();
+Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.getName()), grade(other.getGrade()) {
+	if (this == &other) {
+		return;
+	}
 
 	*this = other;
 }
