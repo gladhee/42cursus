@@ -8,8 +8,8 @@
 int main() {
 	Data data;
 	data.s1 = "Hello";
-	data.n = 42;
 	data.s2 = "World";
+	data.n = 42;
 
 	Data *data_ptr = &data;
 	std::cout << "Data_ptr: " << data_ptr->s1 << data_ptr->s2 << data_ptr->n << std::endl;

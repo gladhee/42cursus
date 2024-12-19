@@ -7,11 +7,18 @@
 Serializer::Serializer() {}
 
 Serializer::Serializer(const Serializer &serializer) {
-	(void) serializer;
+	if (this == &serializer) {
+		return;
+	}
+
+	*this = serializer;
 }
 
 Serializer &Serializer::operator=(const Serializer &serializer) {
-	(void) serializer;
+	if (this == &serializer) {
+		return *this;
+	}
+	
 	return *this;
 }
 
