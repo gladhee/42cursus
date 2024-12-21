@@ -1,9 +1,9 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-SRCS = main.cpp SclalarConveter.cpp
+SRCS = main.cpp ScalarConverter.cpp
 OBJS = $(SRCS:.cpp=.o)
-HEADER = SclalarConveter.hpp
-NAME = sclalarConveter
+HEADER = ScalarConverter.hpp
+NAME = scalarConverter
 
 all: $(NAME)
 
