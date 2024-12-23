@@ -48,11 +48,13 @@ bool ScalarConverter::isChar(std::string const &input) {
 
 bool ScalarConverter::isInffOrNanf(std::string const &input) {
 	std::string const infStrings[] = {"nanf", "+inff", "-inff", "inff"};
+
 	for (size_t i = 0; i < 4; i++) {
 		if (input == infStrings[i]) {
 			return true;
 		}
 	}
+
 	return (false);
 }
 
@@ -121,7 +123,7 @@ bool ScalarConverter::isDouble(std::string const &input) {
 }
 
 void ScalarConverter::convertChar(std::string const &input) {
-	char c = static_cast<char>(input[0]);
+	char c = input[0];
 
 	printChar(c);
 	printInt(static_cast<int>(c));
@@ -182,10 +184,13 @@ void ScalarConverter::convertDouble(std::string const &input) {
 
 void ScalarConverter::printChar(char c) {
 	std::cout << "char: ";
-	if (std::isprint(c))
+
+	if (std::isprint(c)) {
 		std::cout << "'" << c << "'" << std::endl;
-	else
-		std::cout << "Non displayable" << std::endl;
+		return;
+	}
+
+	std::cout << "Non displayable" << std::endl;
 }
 
 void ScalarConverter::printInt(int i) {
@@ -196,6 +201,7 @@ void ScalarConverter::printFloat(float f) {
 	if (f == std::floor(f)) {
 		std::cout << std::fixed << std::setprecision(1);
 	}
+
 	std::cout << "float: " << f << "f" << std::endl;
 }
 
@@ -203,6 +209,7 @@ void ScalarConverter::printDouble(double d) {
 	if (d == std::floor(d)) {
 		std::cout << std::fixed << std::setprecision(1);
 	}
+
 	std::cout << "double: " << d << std::endl;
 }
 

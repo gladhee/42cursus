@@ -37,21 +37,21 @@ void identify(Base *p) {
 void identify(Base &p) {
 	try {
 		A &a = dynamic_cast<A &>(p);
-		(void) a;
+		static_cast<void>(a);
 		std::cout << "A reference" << std::endl;
 	} catch (std::exception &e) {
 	}
 
 	try {
 		B &b = dynamic_cast<B &>(p);
-		(void) b;
+		static_cast<void>(b);
 		std::cout << "B reference" << std::endl;
 	} catch (std::exception &e) {
 	}
 
 	try {
 		C &c = dynamic_cast<C &>(p);
-		(void) c;
+		static_cast<void>(c);
 		std::cout << "C reference" << std::endl;
 	} catch (std::exception &e) {
 	}
