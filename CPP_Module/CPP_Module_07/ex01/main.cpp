@@ -18,5 +18,9 @@ int main() {
 	iter(doubleArray, 5, print);
 	std::cout << std::endl;
 
+	int intConstArray[] = {1, 2, 3, 4, 5};
+	iter(intConstArray, 5, print);
+	std::cout << std::endl;
+
 	return 0;
 }
