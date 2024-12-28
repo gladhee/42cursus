@@ -4,58 +4,32 @@
 
 #include "BitcoinExchange.hpp"
 
+void run(BitcoinExchange &exchange, std::ifstream &inputFile);
+
 int main(int argc, char **argv) {
 	if (argc != 2) {
 		std::cerr << "Usage: ./btc <file>" << std::endl;
 		return 1;
 	}
 
-	try {
-		BitcoinExchange exchange;
+	BitcoinExchange exchange;
+	std::ifstream inputFile = exchange.getFile(argv[1]);\
+	run(exchange, inputFile);
 
-		std::string inputFile(argv[1]), line;
-		if (std::getline(inputFile, line)) {
-			validateInputHeader(line);
-		}
-
-		while (std::getline(inputFile, line)) {
-			processLine(exchange, line);
-		}
-
-	} catch (const std::exception &e) {
-		std::cerr << e.what() << std::endl;
-		return 1;
-	}
-
-
+	inputFile.close();
+	return 0;
 }
 
-void processLine(BitcoinExchange &exchange, const std::string &line) {
-	std::stringstream ss(line);
-	std::string date, value;
+void run(BitcoinExchange &exchange, std::ifstream &inputFile) {
+	std::string line;
 
-	if (std::getline(ss, date, '|') && std::getline(ss, value, '|')) {
-		exchange.processLine(date, value);
-	} else {
-		throw std::invalid_argument("Invalid input: " + line);
-	}
-}
+	exchange.validateInputHeader(inputFile);
 
-void validateInputHeader(const std::string &line) {
-	std::stringstream ss(line);
-	std::string firstHeader, secondHeader;
-
-	if (std::getline(ss, firstHeader, '|') && std::getline(ss, secondHeader, '|')) {
-		if (firstHeader != "date" || secondHeader != "value") {
-			throw std::invalid_argument("Invalid input header: " + firstHeader + " | " + secondHeader);
+	while (std::getline(inputFile, line)) {
+		try {
+			exchange.processLine(line);
+		} catch (std::exception &e) {
+			std::cerr << "Error: " << e.what() << std::endl;
 		}
-	} else {
-		throw std::invalid_argument("Invalid input header: " + line);
 	}
-}
-
-bool checkLeapYear(std::string date) {
-	std::time(&time);
-	std::tm *time = std::localtime(&time);
-
 }
