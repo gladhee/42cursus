@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC= gcc
+CC= cc
 CFLAGS= -Wall -Wextra -Werror
 AR= ar
 ARFLAGS= rcs
@@ -38,19 +38,19 @@ endif
 all : $(NAME)
 
 $(NAME) : $(OBJ_FILES)
-		$(AR) $(ARFLAGS) $@ $^
+		@$(AR) $(ARFLAGS) $@ $^
 
 bonus :
 		@make WITH_BONUS=1 all
 
 .c.o : $(SRCS)
-		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+		@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean :
-		$(RM) $(OBJS) $(BONUS_OBJS)
+		@$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean : clean
-		$(RM) $(NAME)
+		@$(RM) $(NAME)
 
 re : fclean all
 

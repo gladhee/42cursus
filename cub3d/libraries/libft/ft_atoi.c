@@ -37,7 +37,7 @@ static int	ft_longcheck(unsigned long long result, int sign)
 	if ((!lencheck && sign > 0) || (result > max && sign > 0))
 		return (-1);
 	else if ((!lencheck && sign < 0) || (result > max && sign < 0))
-		return (0);
+		return (-1);
 	else
 		return (sign * (int)(result));
 }
