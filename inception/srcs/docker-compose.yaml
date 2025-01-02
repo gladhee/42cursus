@@ -26,7 +26,7 @@ services:
     depends_on:
       - mariadb
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost" ]
+      test: [ "CMD", "curl", "-f", "http://nginx" ] # nginx를 통해 워드프레스 확인
       interval: 10s
       timeout: 5s
       retries: 3
@@ -35,7 +35,7 @@ services:
     container_name: nginx
     build: ./requirements/nginx
     ports:
-      - 443:443
+      - "443:443"
     restart: always
     volumes:
       - wp_data:/var/www/html

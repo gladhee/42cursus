@@ -22,9 +22,9 @@ EXPOSE 3306
 
 COPY conf/mariadb-server.cnf /etc/my.cnf.d/
 
-COPY tools/docker-entrypoint.sh /docker-entrypoint-initdb.d/
-RUN chmod +x /docker-entrypoint-initdb.d/docker-entrypoint.sh
+COPY tools/entrypoint.sh /entrypoint-initdb.d/
+RUN chmod +x /entrypoint-initdb.d/entrypoint.sh
 
-ENTRYPOINT ["/docker-entrypoint-initdb.d/docker-entrypoint.sh"]
+ENTRYPOINT ["/entrypoint-initdb.d/entrypoint.sh"]
 
 CMD ["mysqld", "--user=mysql"]
