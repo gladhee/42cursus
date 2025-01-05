@@ -1,5 +1,4 @@
 FROM alpine:3.20
-LABEL authors="heesungchoi"
 
 # Install mariadb
 # The mariadb for alpine is equivalent to mysql

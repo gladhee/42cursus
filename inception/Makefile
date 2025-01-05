@@ -1,11 +1,10 @@
 all: up
 
-#prepare:
-#	@export $(shell grep -v '^#' srcs/.env | xargs) && \
-#	mkdir -p $${WP_DATA_PATH} && \
-#	mkdir -p $${DB_DATA_PATH}
+prepare:
+	mkdir -p ./srcs/data/wordpressw && \
+	mkdir -p ./srcs/data/mariadb
 
-up:
+up: prepare
 	@docker-compose -f srcs/docker-compose.yaml up -d --build
 
 down:
