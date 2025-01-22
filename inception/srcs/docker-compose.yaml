@@ -40,13 +40,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ${WP_DATA_PATH}
+      device: ./data/wordpress
       o: bind
   db_data:
     driver: local
     driver_opts:
       type: none
-      device: ${DB_DATA_PATH}
+      device: ./data/mariadb
       o: bind
 
 networks:
