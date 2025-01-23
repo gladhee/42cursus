@@ -1,22 +1,28 @@
-all: up
+all : up
 
-prepare:
-	mkdir -p ./srcs/data/wordpressw && \
-	mkdir -p ./srcs/data/mariadb
+up :
+	if [ ! -d "/home/heechoi/data" ]; then \
+		mkdir /home/heechoi/data; \
+	fi
+	if [ ! -d "/home/heechoi/data/html" ]; then \
+		mkdir /home/heechoi/data/html; \
+	fi
+	if [ ! -d "/home/heechoi/data/mysql" ]; then \
+		mkdir /home/heechoi/data/mysql; \
+	fi
+	docker compose -f srcs/docker-compose.yml up --build
 
-up: prepare
-	@docker-compose -f srcs/docker-compose.yaml up -d --build
+down :
+	docker compose -f srcs/docker-compose.yml down
 
-down:
-	@docker-compose -f srcs/docker-compose.yaml down -v
+clean : down
+	docker stop $$(docker ps -q); \
+	docker rm $$(docker ps -a -q); \
+	docker image rmi -f $$(docker image ls -q); \
+	docker volume rm $$(docker volume ls -q); \
+	docker builder prune -f
 
-start:
-	@docker-compose -f srcs/docker-compose.yaml start
+	rm -rf /home/heechoi/data/html/*
+	rm -rf /home/heechoi/data/mysql/*
 
-stop:
-	@docker-compose -f srcs/docker-compose.yaml stop
-
-status:
-	@docker ps
-
-re: down up
+.PHONY : all up down clean

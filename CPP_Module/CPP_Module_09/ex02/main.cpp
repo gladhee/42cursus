@@ -51,7 +51,7 @@ void measurePerformanceVector(std::vector<int>& vec, PmergeMe &p) {
 
 void measurePerformanceDeque(std::deque<int>& deq, PmergeMe &p) {
 	std::clock_t start = std::clock();
-	p.sortDeque(deq);
+	std::vector<int> sortedDeq = p.sortDeque(deq);
 	std::clock_t end = std::clock();
 
 	double elapsedTime = (1000000.0 * (end - start)) / CLOCKS_PER_SEC;

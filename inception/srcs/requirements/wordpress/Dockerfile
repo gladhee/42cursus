@@ -1,27 +1,23 @@
-FROM alpine:3.20
+FROM debian:bullseye
 
-# Install WordPress dependencies
-RUN apk update && apk add --no-cache \
-    curl php82 php82-phar php82-mbstring php82-iconv php82-tokenizer \
-    php82-fpm php82-mysqli \
-    php82-ctype php82-ftp
+RUN apt update -yq && \
+    apt upgrade -yq && \
+	apt-get install -yq apt-transport-https lsb-release ca-certificates wget gnupg && \
+    apt install -yq php7.4 && \
+	apt install -yq php7.4-mysql && \
+	apt install -yq php7.4-cli && \
+	apt install -yq php7.4-mbstring && \
+	apt install -yq php7.4-fpm && \
+	apt install -yq php7.4-gettext && \
+	apt install -yq mariadb-client && \
+	apt install -yq wget && \
+    rm -rf /etc/php/7.4/fpm/pool.d/www.conf && \
+    mkdir -p /run/php
 
-COPY conf/www.conf /etc/php82/php-fpm.d/www.conf
-
-# Install wp-cli
-WORKDIR /usr/local/bin
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x wp-cli.phar
-RUN ln -s wp-cli.phar /usr/local/bin/wp
-RUN ln -s /usr/bin/php82 /usr/bin/php
-
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-EXPOSE 9000
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
-WORKDIR /var/www/html
-
-CMD ["php-fpm82", "-F"]
+CMD ["php-fpm7.4", "-F"]
