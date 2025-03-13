@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 	printData(vec);
 
 	measurePerformanceVector(vec, p);
-	measurePerformanceDeque(deq, p);
+//	measurePerformanceDeque(deq, p);
 }
 
 void measurePerformanceVector(std::vector<int>& vec, PmergeMe &p) {
@@ -49,14 +49,14 @@ void measurePerformanceVector(std::vector<int>& vec, PmergeMe &p) {
 			  << elapsedTime << " us" << std::endl;
 }
 
-void measurePerformanceDeque(std::deque<int>& deq, PmergeMe &p) {
-	std::clock_t start = std::clock();
-	std::vector<int> sortedDeq = p.sortDeque(deq);
-	std::clock_t end = std::clock();
-
-	double elapsedTime = (1000000.0 * (end - start)) / CLOCKS_PER_SEC;
-
-	std::cout << "Time to process a range of " << deq.size()
-			  << " elements with std::vector : " << std::fixed << std::setprecision(5)
-			  << elapsedTime << " us" << std::endl;
-}
+//void measurePerformanceDeque(std::deque<int>& deq, PmergeMe &p) {
+//	std::clock_t start = std::clock();
+//	std::vector<int> sortedDeq = p.sortDeque(deq);
+//	std::clock_t end = std::clock();
+//
+//	double elapsedTime = (1000000.0 * (end - start)) / CLOCKS_PER_SEC;
+//
+//	std::cout << "Time to process a range of " << deq.size()
+//			  << " elements with std::vector : " << std::fixed << std::setprecision(5)
+//			  << elapsedTime << " us" << std::endl;
+//}

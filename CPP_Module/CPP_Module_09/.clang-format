@@ -1,0 +1,26 @@
+Language: Cpp
+BasedOnStyle: Google
+IndentWidth: 4
+
+# 포인터, 참조 위치
+PointerAlignment: Left
+ReferenceAlignment: Left
+
+# 중괄호 스타일
+BreakBeforeBraces: Attach
+
+# 연산자 주변 공백
+SpacesInParentheses: false
+SpaceBeforeParens: ControlStatements
+SpacesInConditionalStatement: true
+
+# 클래스/구조체 관련
+AccessModifierOffset: -4
+SortIncludes: true
+
+# 함수 정의 스타일
+AlwaysBreakAfterDefinitionReturnType: None
+AllowShortFunctionsOnASingleLine: InlineOnly
+
+# 라인 길이 관련
+ColumnLimit: 100
