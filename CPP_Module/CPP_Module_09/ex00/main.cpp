@@ -4,7 +4,7 @@
 
 #include "BitcoinExchange.hpp"
 
-void run(BitcoinExchange &exchange, std::ifstream &inputFile);
+void run(BitcoinExchange &exchange, std::ifstream *inputFile);
 
 int main(int argc, char **argv) {
 	if (argc != 2) {
@@ -13,19 +13,19 @@ int main(int argc, char **argv) {
 	}
 
 	BitcoinExchange exchange;
-	std::ifstream inputFile = exchange.getFile(argv[1]);\
+	std::ifstream* inputFile = exchange.getFile(argv[1]);\
 	run(exchange, inputFile);
 
-	inputFile.close();
+	delete inputFile;
 	return 0;
 }
 
-void run(BitcoinExchange &exchange, std::ifstream &inputFile) {
+void run(BitcoinExchange &exchange, std::ifstream *inputFile) {
 	std::string line;
 
 	exchange.validateInputHeader(inputFile);
 
-	while (std::getline(inputFile, line)) {
+	while (std::getline(*inputFile, line)) {
 		try {
 			exchange.processLine(line);
 		} catch (std::exception &e) {

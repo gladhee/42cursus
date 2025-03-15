@@ -42,25 +42,25 @@ BitcoinExchange::~BitcoinExchange() {}
 std::map<std::string, double> BitcoinExchange::loadExchangeRate(const std::string &filename) {
 	std::map<std::string, double> exchangeRates;
 
-	std::ifstream database = getFile(filename);
+	std::ifstream *database = getFile(filename);
 	skipHeader(database);
 	exchangeRates = processLine(database);
-	database.close();
+	delete database;
 
 	return exchangeRates;
 }
 
-void BitcoinExchange::skipHeader(std::ifstream &database) {
+void BitcoinExchange::skipHeader(std::ifstream *database) {
 	std::string line;
-	std::getline(database, line);
+	std::getline(*database, line);
 }
 
-std::map<std::string, double> BitcoinExchange::processLine(std::ifstream &database) {
+std::map<std::string, double> BitcoinExchange::processLine(std::ifstream *database) {
 	std::map<std::string, double> exchangeRates;
 	std::string line, key, value;
 	double rate;
 
-	while (std::getline(database, line)) {
+	while (std::getline(*database, line)) {
 		std::istringstream iss(line);
 
 		std::getline(iss, key, DATABASE_DELIMITER);
@@ -73,12 +73,12 @@ std::map<std::string, double> BitcoinExchange::processLine(std::ifstream &databa
 	return exchangeRates;
 }
 
-void BitcoinExchange::validateInputHeader(std::ifstream &inputFile) {
+void BitcoinExchange::validateInputHeader(std::ifstream *inputFile) {
 	std::string line, key, value;
 	char dlm;
 	std::stringstream ss;
 
-	if (!std::getline(inputFile, line)) {
+	if (!std::getline(*inputFile, line)) {
 		throw std::runtime_error("Input file is empty.");
 	}
 
@@ -189,10 +189,10 @@ double BitcoinExchange::calculate(const std::string &date, double quantity) {
 	return it->second * quantity;
 }
 
-std::ifstream BitcoinExchange::getFile(const std::string &filename) {
-	std::ifstream file(filename.c_str());
+std::ifstream* BitcoinExchange::getFile(const std::string &filename) {
+	std::ifstream* file = new std::ifstream(filename);
 
-	if (!file.is_open()) {
+	if (!file->is_open()) {
 		throw std::runtime_error("Cannot open file: " + filename);
 	}
 

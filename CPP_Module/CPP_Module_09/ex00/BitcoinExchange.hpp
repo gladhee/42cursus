@@ -38,9 +38,9 @@ private:
 
 	std::map<std::string, double> loadExchangeRate(const std::string &filename);
 
-	void skipHeader(std::ifstream &database);
+	void skipHeader(std::ifstream *database);
 
-	std::map<std::string, double> processLine(std::ifstream &database);
+	std::map<std::string, double> processLine(std::ifstream *database);
 
 	void validateDate(const std::string &date);
 
@@ -60,11 +60,11 @@ public:
 
 	~BitcoinExchange();
 
-	void validateInputHeader(std::ifstream &inputFile);
+	void validateInputHeader(std::ifstream *inputFile);
 
 	void processLine(std::string &line);
 
-	std::ifstream getFile(const std::string &filename);
+	std::ifstream* getFile(const std::string &filename);
 
 };
 
