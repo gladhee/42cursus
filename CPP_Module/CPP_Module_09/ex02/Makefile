@@ -1,5 +1,5 @@
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS = main.cpp PmergeMe.cpp
 OBJS = $(SRCS:.cpp=.o)
 HEADER = PmergeMe.hpp
